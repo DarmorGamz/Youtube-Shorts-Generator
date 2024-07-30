@@ -1,0 +1,67 @@
+{% extends "layout.html" %}
+{% block main %}
+
+<main>
+    <br>
+    <div class="container">
+        <form id="settingsForm" action="/settings" method="post" novalidate>
+
+            <!-- Reddit Credentials -->
+            <p class="h4">Reddit Credentials</p>
+
+            <!-- General Settings -->
+            <p class="h4">General Settings</p>
+            <div class="row mb-2">
+                <label for="times_to_run" class="col-4">Times To Run</label>
+                <div class="col-8">
+                    <div class="input-group">
+                        <input name="times_to_run" type="range" class="form-range" min="1" max="1000" step="1">
+                    </div>
+                    <span class="form-text text-muted">Used if you want to create multiple videos.</span>
+                </div>
+            </div>
+
+            <!-- TTS Settings -->
+            <p class="h4">TTS Settings</p>
+            <div class="row mb-2">
+                <label for="voice_choice" class="col-4">TTS Voice Choice</label>
+                <div class="col-8">
+                    <select name="voice_choice" class="form-select" data-toggle="tooltip"
+                        data-original-title='The voice platform used for TTS generation'>
+                        <option value="streamlabspolly">OpenAI TTS</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <label for="aws_polly_voice" class="col-4">OpenAI TTS Voice</label>
+                <div class="col-8">
+                    <div class="input-group voices">
+                        <select name="aws_polly_voice" class="form-select" data-toggle="tooltip"
+                            data-original-title='The voice used for OpenAI TTS'>
+                            <option value="Brian">Brian</option>
+                            <option value="Emma">Emma</option>
+                            <option value="Russell">Russell</option>
+                            <option value="Joey">Joey</option>
+                            <option value="Matthew">Matthew</option>
+                        </select>
+
+                        <button type="button" class="btn btn-primary"><i id="awspolly_icon"
+                                class="bi-volume-up-fill"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="col text-center">
+                <br>
+                <button id="defaultSettingsBtn" type="button" class="btn btn-secondary">Default
+                    Settings</button>
+                <button id="submitButton" type="submit" class="btn btn-success">Save
+                    Changes</button>
+            </div>
+        </form>
+    </div>
+</main>
+
+<script>
+</script>
+
+{% endblock %}
