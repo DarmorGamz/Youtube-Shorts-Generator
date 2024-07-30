@@ -1,13 +1,35 @@
 # coding: utf-8
 """
-    OpenAI
+This module defines the Configuration class, which manages configuration settings 
+for interacting with the OpenAI API. It includes attributes for storing the API key 
+and a temporary directory path for data storage. The module also ensures the specified 
+temporary directory exists or creates it if necessary.
+
+Modules Imported:
+- os: Standard library for interacting with the operating system, particularly for file 
+    and directory management.
+- logging: Standard library for logging error and informational messages.
+
+Classes:
+    Configuration: A class to manage configuration settings, including the API key and 
+        temporary storage directory.
+
+Usage:
+    config = Configuration(api_key="your_api_key", temp_dir="/path/to/temp_dir")
+
+    # Accessing attributes
+    print(config.api_key)
+    print(config.temp_dir)
+
+    # Example initialization without optional arguments
+    default_config = Configuration()
 """
 
 from __future__ import absolute_import
 import os
 import logging
 
-class Configuration:
+class Configuration: # pylint: disable=R0903:too-few-public-methods
     """
     A class to manage configuration settings for API interactions.
 

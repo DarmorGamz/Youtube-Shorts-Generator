@@ -1,5 +1,27 @@
 """
-Blah
+This module provides a client class, CHATApi, for interacting with the OpenAI API 
+to generate YouTube short scripts and titles. It includes functionalities to read 
+and process titles, generate scripts, and save the outputs to specified file paths. 
+The module uses MoviePy and OpenAI's API for these operations and handles exceptions 
+to ensure robust error management.
+
+Modules Imported:
+- json: Standard library for parsing JSON data.
+- os: Standard library for interacting with the operating system.
+- logging: Standard library for logging error and informational messages.
+- OpenAI: The main OpenAI client for interacting with the API.
+- OpenAiClient: A custom client class for OpenAI interactions.
+- APIError, RequestError: Custom exception classes for handling specific API-related errors.
+
+Classes:
+    CHATApi: A class to handle the generation of YouTube short 
+        scripts and titles using the OpenAI API.
+
+Usage:
+    api_client = OpenAiClient()
+    chat_api = CHATApi(api_client)
+    chat_api.chat_completions_title_create(topic="Artificial Intelligence")
+    chat_api.chat_completions_script_create()
 """
 import json
 import os
@@ -83,12 +105,19 @@ class CHATApi:
         try:
             response = self.api_client.chat.completions.create(
                 model="gpt-4o-mini",
-                messages=[
-                    {"role": "system", "content": "You are a skilled scriptwriter for YouTube shorts, \
-                        focusing on engaging and informative content."},
-                    {"role": "user", "content": f"Write a 20-30 second YouTube short related to '{title}'. \
-                        Do not include headings like 'Hook', 'Beginning', 'Middle', 'End'—just the script. \
-                        Do not quote anyone in the script. The ending should be an open-ended question."}
+                messages = [
+                    {
+                        "role": "system",
+                        "content": "You are a skilled scriptwriter for YouTube shorts, \
+                        focusing on engaging and informative content."
+                    },
+                    {
+                        "role": "user",
+                        "content": f"Write a 20-30 second YouTube short related to '{title}'. \
+                            Do not include headings like 'Hook', 'Beginning', 'Middle', 'End'- \
+                            just the script. Do not quote anyone in the script. \
+                            The ending should be an open-ended question."
+                    }
                 ]
             )
             return response.choices[0].message.content.strip()
