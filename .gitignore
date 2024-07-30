@@ -1,5 +1,61 @@
+ Byte-compiled files
+__pycache__/
+*.py[cod]
+
+# Environment variables file
 .env
-.venv/*
-logs/*
-temp/*
-**/__pycache__/
+
+# Virtual environment directory
+.venv/
+venv/
+
+# Logs
+logs/
+*.log
+
+# Temporary files and directories
+temp/
+tmp/
+*.temp
+*.tmp
+
+# Database files
+*.sqlite3
+*.db
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# VS Code specific files
+.vscode/
+
+# macOS specific files
+.DS_Store
+
+# Pytest cache
+.pytest_cache/
+
+# Coverage reports
+htmlcov/
+.coverage
+.coverage.*
+
+# MyPy
+.mypy_cache/
+
+# Profiling data
+.prof
+
+# Test results
+junit/
+results/
+xmlrunner/
+
+# Static analysis reports
+.sonar/
+
+# Build directories
+build/
+dist/
+*.egg-info/
+.eggs/

@@ -1,12 +1,30 @@
 """
-Blah
+This module provides a client class, TTSApi, for interacting with the OpenAI API 
+to convert text into speech audio files. It includes functionalities for setting 
+up file paths, handling text-to-speech conversion, and managing errors during 
+the process. The module uses the OpenAI API to generate speech and save the output 
+in a specified file format.
+
+Modules Imported:
+- os: Standard library for interacting with the operating system, particularly for file paths.
+- logging: Standard library for logging error and informational messages.
+- OpenAI, APIError: OpenAI library and specific error class for handling API interactions.
+- OpenAiClient: Custom client class for managing OpenAI API sessions.
+
+Classes:
+    TTSApi: A class to handle text-to-speech conversion using the OpenAI API.
+
+Usage:
+    api_client = OpenAiClient()
+    tts_api = TTSApi(api_client)
+    tts_api.audio_speech_create("Hello, world!")
 """
 import os
 import logging
 from openai import OpenAI, APIError
 from openai_api.openai_client import OpenAiClient
 
-class TTSApi:
+class TTSApi: #pylint: disable=R0903:too-few-public-methods
     """
     A class to interact with the OpenAI API for text-to-speech (TTS) conversion.
 
