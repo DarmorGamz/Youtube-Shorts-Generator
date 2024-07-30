@@ -43,7 +43,7 @@ This project leverages OpenAI's capabilities to streamline the creation of YouTu
 git clone https://github.com/DarmorGamz/youtube-shorts-generator.git
 ```
 
-#### Copy Example Configuration and fill out values in config.json
+#### Copy ENV Template and provide openai api-key in .env
 ```bash
 cp .envtemplate .env
 ```
