@@ -45,7 +45,7 @@ git clone https://github.com/DarmorGamz/youtube-shorts-generator.git
 
 #### Copy Example Configuration and fill out values in config.json
 ```bash
-cp config.example.json config.json
+cp .envtemplate .env
 ```
 
 #### Create a virtual environment
