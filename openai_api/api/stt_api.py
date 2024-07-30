@@ -1,5 +1,24 @@
 """
-Blah
+This module provides a client class, STTApi, for interacting with the OpenAI API to transcribe 
+audio files into text. It includes functionalities to set up file paths for input and output, 
+handle audio file processing, and manage errors during transcription operations. The module 
+utilizes the OpenAI API for generating transcriptions and outputs detailed JSON files containing 
+the transcription text and word-level timing information.
+
+Modules Imported:
+- os: Standard library for interacting with the operating system.
+- json: Standard library for parsing and serializing JSON data.
+- logging: Standard library for logging error and informational messages.
+- OpenAI, APIError: OpenAI library and specific error class for handling API interactions.
+- OpenAiClient: Custom client class for managing OpenAI API sessions.
+
+Classes:
+    STTApi: A class to handle speech-to-text conversion using the OpenAI API.
+
+Usage:
+    api_client = OpenAiClient()
+    stt_api = STTApi(api_client)
+    stt_api.audio_transcriptions_create()
 """
 import os
 import json
@@ -16,7 +35,7 @@ class STTApi: # pylint: disable=R0903:too-few-public-methods
         output_transcription_file_path (str): The file path for storing transcription data.
     """
 
-    def __init__(self, api_client: OpenAI = None):
+    def __init__(self, api_client: OpenAiClient = None):
         """
         Initializes the STTApi with an OpenAI client and sets up file paths.
 
@@ -27,7 +46,7 @@ class STTApi: # pylint: disable=R0903:too-few-public-methods
         if api_client is None:
             print("api_client is None")
             return
-        self.api_client = api_client.client
+        self.api_client: OpenAI = api_client.client
         self.input_speech_file_path = os.path.join(
             api_client.configuration.temp_dir,
             "speech.mp3"

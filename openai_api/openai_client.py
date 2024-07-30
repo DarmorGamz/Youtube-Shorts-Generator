@@ -1,6 +1,36 @@
 # coding: utf-8
 """
-    OpenAI
+This module defines the OpenAiClient class, which serves as a client for 
+    interacting with the OpenAI API. 
+The client utilizes a Configuration object to manage API settings, 
+    including the API key, and provides 
+methods for context management and resource cleanup.
+
+Modules Imported:
+- OpenAI: The main OpenAI client for API interactions.
+- Configuration: A custom class for managing API configuration settings.
+
+Classes:
+    OpenAiClient: A client class for OpenAI API interactions, 
+        supporting context management for resource handling.
+
+Usage:
+    from openai_api.configuration import Configuration
+    from openai_api.openai_client import OpenAiClient
+
+    config = Configuration(api_key="your_api_key")
+    with OpenAiClient(config) as client:
+        # Use the client for API operations
+
+Attributes:
+    configuration (Configuration): Configuration settings including API key.
+    client (OpenAI): An instance of the OpenAI client.
+
+Methods:
+    __init__(configuration): Initializes the client with a Configuration object.
+    __enter__(): Enters the runtime context for resource management.
+    __exit__(exc_type, exc_value, traceback): Exits the runtime context, ensuring cleanup.
+    close(): Releases any resources held by the client.
 """
 
 from __future__ import absolute_import

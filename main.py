@@ -8,8 +8,9 @@ from datetime import datetime, date
 
 from dotenv import load_dotenv
 import openai_api
-import video_proccesing
+import video_processing
 
+# pylint: disable=W1401:anomalous-backslash-in-string
 print(
     """
  __     _________    _____ _    _  ____  _____ _______    _____ ______ _   _ 
@@ -20,6 +21,7 @@ print(
     |_|     |_|    |_____/|_|  |_|\____/|_|  \_\ |_|     \_____|______|_| \_|                                                   
 """
 )
+# pylint: enable=W1401:anomalous-backslash-in-string
 
 def main() -> None:
     """
@@ -55,7 +57,7 @@ def main() -> None:
         except Exception as e: # pylint: disable=W0718:broad-exception-caught
             logging.error("Unexpected error occurred: %s", e)
 
-    with video_proccesing.VideoProccessClient() as process_client:
+    with video_processing.VideoProcessClient() as process_client: # pylint: disable=W0612:unused-variable
         try:
             # Add processing logic here
             pass

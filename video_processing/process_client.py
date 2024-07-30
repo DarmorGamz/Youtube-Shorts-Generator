@@ -1,20 +1,67 @@
-from moviepy.editor import TextClip, CompositeVideoClip, ColorClip, AudioFileClip
-from moviepy.video.tools.subtitles import SubtitlesClip
-from moviepy.config import change_settings
-change_settings({"IMAGEMAGICK_BINARY": r"C:\\Program Files\\ImageMagick-7.1.1-Q16-HDRI\\magick.exe"})
+"""
+This module provides functionalities for video processing using the MoviePy library. 
+It imports essential components for handling text overlays, video compositions, 
+color clips, audio files, and subtitles. Additionally, it configures the ImageMagick 
+binary path, which is required for certain MoviePy operations.
 
-class VideoProcessClient(object):
+Modules Imported:
+- TextClip, CompositeVideoClip, ColorClip, AudioFileClip: 
+    Core components from MoviePy for video and audio editing.
+- SubtitlesClip: Tool from MoviePy for handling subtitles.
+- change_settings: Utility from MoviePy's configuration module to set the path for ImageMagick.
+
+Classes:
+    VideoProcessClient: A client class to manage video processing operations, 
+                        providing context management and resource handling capabilities.
+
+Usage:
+    with VideoProcessClient() as client:
+        # Perform video processing tasks
+
+Configuration:
+    The module sets the path for the ImageMagick binary, which is necessary for 
+    rendering text and other image-based elements in videos.
+"""
+from moviepy.editor import TextClip, CompositeVideoClip, ColorClip, AudioFileClip # pylint: disable=W0611:unused-import
+from moviepy.video.tools.subtitles import SubtitlesClip# pylint: disable=W0611:unused-import
+from moviepy.config import change_settings
+change_settings({"IMAGEMAGICK_BINARY":
+                r"C:\\Program Files\\ImageMagick-7.1.1-Q16-HDRI\\magick.exe"})
+
+class VideoProcessClient(object): # pylint: disable=R0205:useless-object-inheritance
+    """
+    VideoProcessClient is a context manager class that facilitates video processing tasks.
+    It handles the setup and teardown of resources, ensuring proper management of video 
+    editing processes.
+
+    Methods:
+        __init__(): Initializes the client object.
+        __enter__(): Enters the runtime context and returns the client instance.
+        __exit__(exc_type, exc_value, traceback): Exits the runtime context, handling 
+                                                  any exceptions and cleaning up resources.
+        close(): Closes any resources or connections opened by the client.
+    """
     def __init__(self):
-        pass
+        """Initializes the VideoProcessClient instance."""
 
     def __enter__(self):
+        """Enters the runtime context and returns the client instance."""
         return self
 
     def __exit__(self, exc_type, exc_value, traceback):
+        """
+        Exits the runtime context. If an exception occurred, it is passed to this method.
+        This method ensures that resources are properly closed.
+
+        Args:
+            exc_type (type): The exception type.
+            exc_value (Exception): The exception instance.
+            traceback (traceback): The traceback object.
+        """
         self.close()
 
     def close(self):
-        pass
+        """Closes any resources or connections opened by the client."""
 
 # # Define the duration of the video
 # duration = 3.5
