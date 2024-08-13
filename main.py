@@ -41,15 +41,15 @@ def main() -> None:
             api_instance.chat_completions_title_create(
                 topic="mental toughness and stoicism"
             )
-            api_instance.chat_completions_script_create()
+            script = api_instance.chat_completions_script_create()
 
             print("Creating TTSApi instance...")
             api_instance = openai_api.TTSApi(api_client)
-            api_instance.audio_speech_create(text="hi")
+            api_instance.audio_speech_create(text=script)
 
             print("Creating STTApi instance...")
             api_instance = openai_api.STTApi(api_client)
-            api_instance.audio_transcriptions_create()
+            transcription_data, duration = api_instance.audio_transcriptions_create()
         except openai_api.APIError as e:
             logging.error("API error occurred: %s", e)
         except openai_api.RequestError as e:
@@ -60,7 +60,7 @@ def main() -> None:
     with video_processing.VideoProcessClient() as process_client: # pylint: disable=W0612:unused-variable
         try:
             # Add processing logic here
-            pass
+            process_client.create_video(duration, transcription_data["words"], "./temp/speech.mp3")
         except Exception as e: # pylint: disable=W0718:broad-exception-caught
             logging.error("Unexpected error occurred during video processing: %s", e)
 

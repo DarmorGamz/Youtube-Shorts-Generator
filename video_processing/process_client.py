@@ -25,8 +25,16 @@ Configuration:
 from moviepy.editor import TextClip, CompositeVideoClip, ColorClip, AudioFileClip # pylint: disable=W0611:unused-import
 from moviepy.video.tools.subtitles import SubtitlesClip# pylint: disable=W0611:unused-import
 from moviepy.config import change_settings
+import os
 change_settings({"IMAGEMAGICK_BINARY":
-                r"C:\\Program Files\\ImageMagick-7.1.1-Q16-HDRI\\magick.exe"})
+                r"E:\\ImageMagick-7.1.1-Q16-HDRI\\magick.exe"})
+
+# Function to generate subtitle clips
+def make_text_clip(txt, start, end):
+    return (TextClip(txt, fontsize=100, color='black', font='Arial-Bold')
+            .set_position(('center', 'center'))  # Adjust position if necessary
+            .set_start(start)
+            .set_end(end))
 
 class VideoProcessClient(object): # pylint: disable=R0205:useless-object-inheritance
     """
@@ -63,42 +71,24 @@ class VideoProcessClient(object): # pylint: disable=R0205:useless-object-inherit
     def close(self):
         """Closes any resources or connections opened by the client."""
 
-# # Define the duration of the video
-# duration = 3.5
+    def create_video(self, duration, subtitles_data, audio_file):
+        # Create a background for the video (a plain color image)
+        background = ColorClip(size=(1080, 1920), color=(255, 255, 255), duration=duration)
 
-# # Create a background for the video (a plain color image)
-# background = ColorClip(size=(1080, 1920), color=(255, 255, 255), duration=duration)
+        # Create a composite video with subtitles
+        # subtitles = [make_text_clip(word, start, end) for word, start, end in subtitles_data]
+        subtitles = [make_text_clip(item["word"], item["start"], item["end"]) for item in subtitles_data]
+        video = CompositeVideoClip([background] + subtitles)
 
-# # Define the subtitles with the given words and timestamps
-# subtitles_data = [
-#     ('Today', 0.0, 0.36),
-#     ('is', 0.36, 0.58),
-#     ('a', 0.58, 0.78),
-#     ('wonderful', 0.78, 1.16),
-#     ('day', 1.16, 1.52),
-#     ('to', 1.52, 1.88),
-#     ('build', 1.88, 2.06),
-#     ('something', 2.06, 2.5),
-#     ('people', 2.5, 2.88),
-#     ('love', 2.88, 3.22)
-# ]
+        # Load the audio file
+        audio = AudioFileClip(audio_file)
 
-# # Function to generate subtitle clips
-# def make_text_clip(txt, start, end):
-#     return (TextClip(txt, fontsize=48, color='black', font='Arial-Bold')
-#             .set_position(('center', 1600))  # Adjust position if necessary
-#             .set_start(start)
-#             .set_end(end))
+        # Set the audio to the video
+        video = video.set_audio(audio)
 
-# # Create a composite video with subtitles
-# subtitles = [make_text_clip(word, start, end) for word, start, end in subtitles_data]
-# video = CompositeVideoClip([background] + subtitles)
-
-# # Load the audio file
-# audio = AudioFileClip("speech.mp3")
-
-# # Set the audio to the video
-# video = video.set_audio(audio)
-
-# # Export the video
-# video.write_videofile('video_with_subtitles_and_audio.mp4', codec='libx264', fps=24)
+        # Export the video
+        num_threads = os.cpu_count()
+        video.write_videofile('./temp/video.mp4',
+                              codec='h264_nvenc',
+                              fps=24,
+                              threads=num_threads)
