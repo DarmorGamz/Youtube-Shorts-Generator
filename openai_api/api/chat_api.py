@@ -152,6 +152,7 @@ class CHATApi:
                 json.dump(data, file)
                 file.write("\n")
             print(f"Processed title: {title}")
+            return script
         except IOError as e:
             logging.error("IOError while writing to file %s: %s", self.output_file_path, e)
         except Exception as e: # pylint: disable=W0718:broad-exception-caught

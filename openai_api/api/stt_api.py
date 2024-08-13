@@ -91,6 +91,8 @@ class STTApi: # pylint: disable=R0903:too-few-public-methods
                 json.dump(transcription_data, json_file, indent=4)
             print(f"Transcription data saved to {self.output_transcription_file_path}")
 
+            return transcription_data, transcription_response.duration
+        
         except FileNotFoundError:
             logging.error("Audio file not found: speech.mp3")
         except APIError as e:
