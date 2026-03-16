@@ -35,6 +35,7 @@ This project leverages OpenAI's capabilities to streamline the creation of YouTu
 ### Requirements
 
 - Python 3.11.9
+- [PopcornAI](https://popcornai.art/) - AI video and image generator for branded short clips, launch visuals, and campaign-ready creative assets.
 
 ### Installation
 
